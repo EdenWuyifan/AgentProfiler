@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentprofiler"
+version = "0.1.0"
+description = "A tool to convert agent tracings to interactive UpSet Plots"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Eden Wu", email = "eden@example.com"}
+]
+keywords = ["agent", "profiler", "upset plot", "visualization", "jupyter", "d3.js"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
+requires-python = ">=3.8"
+dependencies = []
+
+[project.optional-dependencies]
+jupyter = ["ipython>=7.0.0"]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+all = ["agentprofiler[jupyter,dev]"]
+
+[project.urls]
+Homepage = "https://github.com/EdenWuyifan/AgentProfiler"
+Repository = "https://github.com/EdenWuyifan/AgentProfiler"
+Issues = "https://github.com/EdenWuyifan/AgentProfiler/issues"
+
+[tool.setuptools.packages.find]
+include = ["agentprofiler*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short"
+
+[tool.black]
+line-length = 88
+target-version = ["py38", "py39", "py310", "py311", "py312"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py38"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+ignore = ["E501"]  # Line length handled by JavaScript template strings
