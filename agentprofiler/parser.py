@@ -6,6 +6,13 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List, Set, Union
 
+# Keys that contain tool call data and should not be copied to metadata
+TOOL_CALL_KEYS = frozenset(["tool_calls", "toolCalls", "calls", "steps"])
+# Keys that identify a trace and should not be copied to metadata
+ID_KEYS = frozenset(["id", "trace_id"])
+# All reserved keys that should not be copied to metadata
+RESERVED_KEYS = TOOL_CALL_KEYS | ID_KEYS
+
 
 def parse_traces(data: Union[str, Path, List[Dict[str, Any]]]) -> List[Dict[str, Any]]:
     """
@@ -89,7 +96,7 @@ def _normalize_single_trace(trace: Dict[str, Any]) -> Dict[str, Any]:
 
     # Preserve any additional metadata
     for key, value in trace.items():
-        if key not in ["id", "trace_id", "tool_calls", "toolCalls", "calls", "steps"]:
+        if key not in RESERVED_KEYS:
             normalized["metadata"][key] = value
 
     return normalized

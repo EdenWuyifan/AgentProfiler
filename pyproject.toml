@@ -9,7 +9,7 @@ description = "A tool to convert agent tracings to interactive UpSet Plots"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
-    {name = "Eden Wu", email = "eden@example.com"}
+    {name = "Eden Wu"}
 ]
 keywords = ["agent", "profiler", "upset plot", "visualization", "jupyter", "d3.js"]
 classifiers = [

@@ -7,6 +7,11 @@ import uuid
 from pathlib import Path
 from typing import Any, Dict
 
+# D3.js v7 CDN URL with Subresource Integrity (SRI) hash for security
+# Using cdnjs as the primary CDN with SRI verification
+D3_CDN_URL = "https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"
+D3_SRI_HASH = "sha512-vc58qvvBdrDR4etbxMdlTt4GBQk1qjvyORR2nrsPsFPyrs+/u5c3+1Ct6upOgdZoIl7eq6k3a1UPDSNAQi/32A=="
+
 
 class UpSetPlot:
     """
@@ -55,7 +60,11 @@ class UpSetPlot:
         """
         d3_script = ""
         if include_d3:
-            d3_script = '<script src="https://d3js.org/d3.v7.min.js"></script>'
+            d3_script = (
+                f'<script src="{D3_CDN_URL}" '
+                f'integrity="{D3_SRI_HASH}" '
+                'crossorigin="anonymous"></script>'
+            )
 
         return f"""
 <!DOCTYPE html>
@@ -112,10 +121,12 @@ class UpSetPlot:
 </style>
 <script>
     (function() {{
-        // Check if D3 is available, if not load it
+        // Check if D3 is available, if not load it with SRI
         if (typeof d3 === 'undefined') {{
             var script = document.createElement('script');
-            script.src = 'https://d3js.org/d3.v7.min.js';
+            script.src = '{D3_CDN_URL}';
+            script.integrity = '{D3_SRI_HASH}';
+            script.crossOrigin = 'anonymous';
             script.onload = function() {{
                 {self._get_javascript()}
             }};

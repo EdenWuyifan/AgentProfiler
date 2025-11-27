@@ -48,7 +48,8 @@ class TestUpSetPlot:
         """Test that to_html includes D3.js by default."""
         plot = UpSetPlot(sample_data)
         html = plot.to_html()
-        assert "d3.v7.min.js" in html
+        assert "d3.min.js" in html
+        assert "integrity=" in html  # SRI hash should be present
         assert "<!DOCTYPE html>" in html
         assert "AgentProfiler" in html
 
@@ -56,7 +57,7 @@ class TestUpSetPlot:
         """Test that to_html can exclude D3.js."""
         plot = UpSetPlot(sample_data)
         html = plot.to_html(include_d3=False)
-        assert "d3.v7.min.js" not in html
+        assert "d3.min.js" not in html
 
     def test_html_contains_data(self, sample_data):
         """Test that HTML contains the data."""
